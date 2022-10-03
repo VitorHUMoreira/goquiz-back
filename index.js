@@ -12,6 +12,9 @@ app.use(cors({ origin: process.env.REACT_APP_URI }));
 const UsersRoute = require("./routes/users.routes");
 app.use("/users", UsersRoute);
 
+const QuizzesRoute = require("./routes/quizzes.routes");
+app.use("/quizzes", QuizzesRoute);
+
 const UploadImgRoute = require("./routes/uploadImg.routes");
 app.use("/", UploadImgRoute);
 

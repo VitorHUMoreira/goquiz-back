@@ -18,7 +18,6 @@ const userSchema = new Schema({
   },
   emailConfirm: { type: Boolean, default: false },
   passwordHash: { type: String, required: true },
-  role: { type: String, enum: ["USER", "ADMIN"], default: "USER" },
   favorites: [{ type: Schema.Types.ObjectId, ref: "Quiz" }],
   quizzes: [{ type: Schema.Types.ObjectId, ref: "Quiz" }],
 });
