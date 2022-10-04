@@ -43,19 +43,18 @@ router.post("/sign-up", async (req, res) => {
     });
 
     delete newUser._doc.passwordHash;
-    //      <img src="https://res.cloudinary.com/q7ynq08g/image/upload/v1664829573/goquiz/logo-placeholder_t4sfky.png" alt="GoQuiz Logo" />
-    //     <a style="margin: 20px;" href="http://localhost:4000/users/activate-account/${newUser._id}" target="_blank" rel="noopener noreferrer"><button style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer;">Verificar e-mail</button></a>
 
     const mailOptions = {
       from: '"❗❓ GoQuiz" <goquiz@hotmail.com>',
       to: email,
       subject: "Verifique seu e-mail do GoQuiz",
-      html: `<div style="font-family: sans-serif; text-align: center;">
-
+      html: `  <div style="font-family: sans-serif; text-align: center;">
+      <h1>GoQuiz</h1>
       <h3 style="margin: 20px;">Verificação de e-mail<h3>
-      <p style="font-size: 12px; margin: 20px; cursor: pointer;">Bem vindo ao GoQuiz ${nick}, divirta-se criando e jogando quiz.</p>
-      <p>Acesse o link para confirmar a conta: http://localhost:4000/users/activate-account/${newUser._id}</p>
-      <p style="font-size: 12px; margin: 20px;">Proteja sua conta GoQuiz verificando seu e-mail.</p>
+          <p style="font-size: 12px; margin: 20px;">Bem vindo ao GoQuiz, <span style="color: green;">${nick}</span>, divirta-se criando e jogando quiz.</p>
+          <p style="font-size: 12px; margin: 20px;">Proteja sua conta GoQuiz verificando seu e-mail.</p>
+          <p style="font-size: 16px; margin: 20px;">Acesse o link abaixo para confirmar sua conta.</p>
+          <p style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px;">http://localhost:4000/users/activate-account/${newUser._id}</p>
     </div>`,
     };
 
