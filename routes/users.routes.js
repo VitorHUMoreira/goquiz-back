@@ -185,7 +185,7 @@ router.delete("/delete", isAuth, attachCurrentUser, async (req, res) => {
 
     allQuizzes.forEach(async (quiz) => {
       const arrayRatings = quiz.ratings.filter((rating) => {
-        return rating.user.equals(userId);
+        return !rating.user.equals(userId);
       });
       await QuizModel.findByIdAndUpdate(quiz._id, {
         ratings: [...arrayRatings],
