@@ -124,4 +124,25 @@ router.delete(
   }
 );
 
+router.put("/rating/:quizId", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+    const loggedInUser = req.currentUser;
+    const { quizId } = req.params;
+    const userRating = req.body.rating;
+
+    const ratingQuiz = await QuizModel.findByIdAndUpdate(
+      quizId,
+      {
+        $inc: { rating: +userRating, plays: 1 },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(ratingQuiz);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 module.exports = router;

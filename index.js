@@ -15,6 +15,9 @@ app.use("/users", UsersRoute);
 const QuizzesRoute = require("./routes/quizzes.routes");
 app.use("/quizzes", QuizzesRoute);
 
+const QuestionsRoute = require("./routes/questions.routes");
+app.use("/questions", QuestionsRoute);
+
 const UploadImgRoute = require("./routes/uploadImg.routes");
 app.use("/", UploadImgRoute);
 

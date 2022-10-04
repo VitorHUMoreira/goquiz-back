@@ -6,16 +6,17 @@ const questionSchema = new Schema({
     type: String,
     required: true,
     minLength: 2,
-    maxLength: 32,
+    maxLength: 128,
   },
   alternatives: [
     {
       type: String,
+      required: true,
       minLength: 1,
-      maxLength: 32,
+      maxLength: 128,
     },
   ],
-  answer: { type: String, minLength: 1, maxLength: 32 },
+  answer: { type: String, required: true, minLength: 1, maxLength: 32 },
 });
 
 const QuestionModel = mongoose.model("Question", questionSchema);
