@@ -29,35 +29,10 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
-router.get("/all", isAuth, attachCurrentUser, async (req, res) => {
-  try {
-    const allQuizzes = await QuizModel.find({});
-    return res.status(200).json(allQuizzes);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
-  }
-});
-
 router.get("/guest/all", async (req, res) => {
   try {
     const allQuizzes = await QuizModel.find({});
     return res.status(200).json(allQuizzes);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
-  }
-});
-
-router.get("/quiz/:quizId", isAuth, attachCurrentUser, async (req, res) => {
-  try {
-    const { quizId } = req.params;
-
-    const quiz = await QuizModel.findById(quizId)
-      .populate("author")
-      .populate("questions");
-
-    return res.status(200).json(quiz);
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);
@@ -119,8 +94,15 @@ router.delete(
       const deletedQuiz = await QuizModel.findByIdAndDelete(quizId);
 
       await UserModel.findByIdAndUpdate(deletedQuiz.author, {
-        $pull: { quizzes: quizId },
+        $pull: { quizzes: quizId, favorites: quizId },
       });
+
+      await UserModel.updateMany(
+        { favorites: { $in: [quizId] } },
+        {
+          $pull: { favorites: quizId },
+        }
+      );
 
       deletedQuiz.questions.forEach(async (question) => {
         await QuestionModel.findByIdAndDelete(question._id);

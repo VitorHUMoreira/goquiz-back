@@ -8,6 +8,9 @@ const questionSchema = new Schema({
     minLength: 2,
     maxLength: 128,
   },
+  picture: {
+    type: String,
+  },
   alternatives: [
     {
       type: String,

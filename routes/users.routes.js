@@ -54,7 +54,8 @@ router.post("/sign-up", async (req, res) => {
           <p style="font-size: 12px; margin: 20px;">Bem vindo ao GoQuiz, <span style="color: green;">${nick}</span>, divirta-se criando e jogando quiz.</p>
           <p style="font-size: 12px; margin: 20px;">Proteja sua conta GoQuiz verificando seu e-mail.</p>
           <p style="font-size: 16px; margin: 20px;">Acesse o link abaixo para confirmar sua conta.</p>
-          <p style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px;">http://localhost:4000/users/activate-account/${newUser._id}</p>
+          <p style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px;">http://localhost:3000/activate-account/${newUser._id}
+          </p>
     </div>`,
     };
 
@@ -175,6 +176,23 @@ router.delete("/delete", isAuth, attachCurrentUser, async (req, res) => {
     });
 
     const deletedQuizzes = await QuizModel.deleteMany({ author: userId });
+
+    // ========================================
+    //
+    // DELETAR O RATING DO CARA DOS QUIZZES
+    //
+    const allQuizzes = await QuizModel.find({});
+
+    allQuizzes.forEach(async (quiz) => {
+      const arrayRatings = quiz.ratings.filter((rating) => {
+        return rating.user.equals(userId);
+      });
+      await QuizModel.findByIdAndUpdate(quiz._id, {
+        ratings: [...arrayRatings],
+      });
+    });
+    //
+    // ========================================
 
     return res.status(200).json({
       deletedUser: deletedUser,
