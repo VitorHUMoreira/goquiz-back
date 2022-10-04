@@ -43,21 +43,23 @@ router.post("/sign-up", async (req, res) => {
     });
 
     delete newUser._doc.passwordHash;
+    //      <img src="https://res.cloudinary.com/q7ynq08g/image/upload/v1664829573/goquiz/logo-placeholder_t4sfky.png" alt="GoQuiz Logo" />
+    //     <a style="margin: 20px;" href="http://localhost:4000/users/activate-account/${newUser._id}" target="_blank" rel="noopener noreferrer"><button style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer;">Verificar e-mail</button></a>
 
-    // const mailOptions = {
-    //   from: '"❗❓ GoQuiz" <goquiz@outlook.com.br>',
-    //   to: email,
-    //   subject: "Verifique seu e-mail do GoQuiz",
-    //   html: `<div style="font-family: sans-serif; text-align: center;">
-    //   <img src="https://res.cloudinary.com/q7ynq08g/image/upload/v1664829573/goquiz/logo-placeholder_t4sfky.png" alt="GoQuiz Logo" />
-    //   <h3 style="margin: 20px;">Verificação de e-mail<h3>
-    //   <p style="font-size: 12px; margin: 20px; cursor: pointer;">Bem vindo ao GoQuiz ${nick}, divirta-se criando e jogando quiz.</p>
-    //   <a style="margin: 20px;" href="http://localhost:4000/users/activate-account/${newUser._id}" target="_blank" rel="noopener noreferrer"><button style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px;">Verificar e-mail</button></a>
-    //   <p style="font-size: 12px; margin: 20px; cursor: pointer;">Proteja sua conta GoQuiz verificando seu e-mail.</p>
-    // </div>`,
-    // };
+    const mailOptions = {
+      from: '"❗❓ GoQuiz" <goquiz@hotmail.com>',
+      to: email,
+      subject: "Verifique seu e-mail do GoQuiz",
+      html: `<div style="font-family: sans-serif; text-align: center;">
 
-    // await transporter.sendMail(mailOptions);
+      <h3 style="margin: 20px;">Verificação de e-mail<h3>
+      <p style="font-size: 12px; margin: 20px; cursor: pointer;">Bem vindo ao GoQuiz ${nick}, divirta-se criando e jogando quiz.</p>
+      <p>Acesse o link para confirmar a conta: http://localhost:4000/users/activate-account/${newUser._id}</p>
+      <p style="font-size: 12px; margin: 20px;">Proteja sua conta GoQuiz verificando seu e-mail.</p>
+    </div>`,
+    };
+
+    await transporter.sendMail(mailOptions);
 
     return res.status(201).json(newUser);
   } catch (error) {
