@@ -15,8 +15,12 @@ const quizSchema = new Schema(
       maxLength: 128,
     },
     author: { type: Schema.Types.ObjectId, ref: "User" },
-    rating: { type: Number, default: 0, min: 0 },
-    plays: { type: Number, default: 0, min: 0 },
+    ratings: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        rating: { type: Number, default: 0, min: 0 },
+      },
+    ],
     questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
   },
   { timestamps: true }
