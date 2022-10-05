@@ -9,7 +9,7 @@ async function attachCurrentUser(req, res, next) {
     });
 
     if (!user.emailConfirm) {
-      return res.status(400).json({ message: "Usuário não ativado" });
+      return res.status(400).json({ message: "User not activated" });
     }
 
     req.currentUser = user;

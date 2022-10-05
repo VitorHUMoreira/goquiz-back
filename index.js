@@ -22,5 +22,5 @@ const UploadImgRoute = require("./routes/uploadImg.routes");
 app.use("/", UploadImgRoute);
 
 app.listen(+process.env.PORT, () => {
-  console.log("Servidor funcionando na porta:", process.env.PORT);
+  console.log("Server up and running on port:", process.env.PORT);
 });

@@ -5,11 +5,11 @@ async function connect() {
     const dbConnection = await mongoose.connect(process.env.MONGODB_URI);
 
     console.log(
-      "Conectado com sucesso ao banco de dados:",
+      "Successfully connected to the database:",
       dbConnection.connection.name
     );
   } catch (error) {
-    console.log("Ocorreu um erro ao se conectar com o banco de dados", error);
+    console.log("Error connecting to database", error);
   }
 }
 

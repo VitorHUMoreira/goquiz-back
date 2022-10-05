@@ -126,34 +126,44 @@ router.put("/rating/:quizId", isAuth, attachCurrentUser, async (req, res) => {
 
     if (quiz.ratings.length !== 0) {
       const arrayRatings = quiz.ratings.filter((rating) => {
-        return rating.user.equals(loggedInUser._id);
+        return !rating.user.equals(loggedInUser._id);
       });
 
       quiz.ratings.forEach(async (rating) => {
         if (rating.user.equals(loggedInUser._id)) {
-          await QuizModel.findByIdAndUpdate(quizId, {
-            ratings: [
-              ...arrayRatings,
-              { user: loggedInUser._id, rating: +userRating },
-            ],
-          });
-        } else {
-          await QuizModel.findByIdAndUpdate(quizId, {
-            $push: {
-              ratings: { user: loggedInUser._id, rating: +userRating },
+          await QuizModel.findByIdAndUpdate(
+            quizId,
+            {
+              ratings: [
+                ...arrayRatings,
+                { user: loggedInUser._id, rating: +userRating },
+              ],
             },
-          });
+            { new: true }
+          );
+        } else {
+          await QuizModel.findByIdAndUpdate(
+            quizId,
+            {
+              $push: {
+                ratings: { user: loggedInUser._id, rating: +userRating },
+              },
+            },
+            { new: true }
+          );
         }
       });
     } else {
-      await QuizModel.findByIdAndUpdate(quizId, {
-        $push: {
-          ratings: { user: loggedInUser._id, rating: +userRating },
+      await QuizModel.findByIdAndUpdate(
+        quizId,
+        {
+          $push: {
+            ratings: { user: loggedInUser._id, rating: +userRating },
+          },
         },
-      });
+        { new: true }
+      );
     }
-
-    const ratingQuiz = await QuizModel.findById(quizId);
 
     return res.status(200).json(ratingQuiz);
   } catch (error) {
