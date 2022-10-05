@@ -4,7 +4,6 @@ const router = express.Router();
 const isAuth = require("../middlewares/isAuth");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
-const UserModel = require("../models/User.model");
 const QuizModel = require("../models/Quiz.model");
 const QuestionModel = require("../models/Question.model");
 

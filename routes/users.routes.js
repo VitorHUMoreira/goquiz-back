@@ -31,7 +31,10 @@ router.post("/sign-up", async (req, res) => {
     if (!(password.length <= 24 && password.length >= 5)) {
       return res
         .status(400)
-        .json({ message: "Senha deve ter entre 5 e 24 caracteres" });
+        .json({
+          message:
+            "Password must contain a minimum of 5 characters and a maximum of 24 characters",
+        });
     }
 
     const salt = await bcrypt.genSalt(saltRounds);
@@ -76,7 +79,7 @@ router.get("/activate-account/:userId", async (req, res) => {
     const user = await UserModel.findById(userId);
 
     if (!user) {
-      return res.send("Erro na ativação da conta");
+      return res.send("Account activation error");
     }
 
     await UserModel.findByIdAndUpdate(userId, {
@@ -84,7 +87,7 @@ router.get("/activate-account/:userId", async (req, res) => {
     });
 
     res.send(
-      `<h1>E-mail verificado com sucesso</h1> <h3>Voltar para home</h3>`
+      `<h1>Conta ativada com sucesso</h1>`
     );
   } catch (error) {
     console.log(error);
@@ -99,7 +102,7 @@ router.post("/login", async (req, res) => {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ message: "Por favor, informe seu email e senha." });
+        .json({ message: "Please enter email and password" });
     }
 
     const user = await UserModel.findOne({ email: email });
@@ -112,7 +115,7 @@ router.post("/login", async (req, res) => {
         user: user,
       });
     } else {
-      return res.status(400).json({ message: "E-mail ou senha incorretos!" });
+      return res.status(400).json({ message: "Incorrect email or password" });
     }
   } catch (error) {
     console.log(error);
@@ -125,7 +128,7 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
     const loggedInUser = req.currentUser;
 
     if (!loggedInUser) {
-      return res.status(404).json({ message: "Usuário não encontrado." });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const user = await UserModel.findById(loggedInUser._id, {

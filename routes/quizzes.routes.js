@@ -29,7 +29,7 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
-router.get("/guest/all", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const allQuizzes = await QuizModel.find({});
     return res.status(200).json(allQuizzes);
@@ -39,7 +39,7 @@ router.get("/guest/all", async (req, res) => {
   }
 });
 
-router.get("/guest/quiz/:quizId", async (req, res) => {
+router.get("/quiz/:quizId", async (req, res) => {
   try {
     const { quizId } = req.params;
 
@@ -60,7 +60,7 @@ router.put("/edit/:quizId", isAuth, attachCurrentUser, async (req, res) => {
     const { quizId } = req.params;
 
     if (!loggedInUser.quizzes.includes(quizId)) {
-      return res.status(400).json({ message: "Quiz não encontrado" });
+      return res.status(400).json({ message: "Quiz not found" });
     }
 
     const editedQuiz = await QuizModel.findByIdAndUpdate(
@@ -88,7 +88,7 @@ router.delete(
       const { quizId } = req.params;
 
       if (!loggedInUser.quizzes.includes(quizId)) {
-        return res.status(400).json({ message: "Quiz não encontrado" });
+        return res.status(400).json({ message: "Quiz not found" });
       }
 
       const deletedQuiz = await QuizModel.findByIdAndDelete(quizId);
