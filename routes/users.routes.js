@@ -45,17 +45,18 @@ router.post("/sign-up", async (req, res) => {
     delete newUser._doc.passwordHash;
 
     const mailOptions = {
-      from: '"❗❓ GoQuiz" <goquiz@hotmail.com>',
+      from: '"GoQuiz" <goquiz@hotmail.com>',
       to: email,
-      subject: "Verifique seu e-mail do GoQuiz",
-      html: `  <div style="font-family: sans-serif; text-align: center;">
+      subject: "Verifique seu e-mail",
+      html: `<div style="font-family: sans-serif; text-align: center; background-color: darkgrey; padding: 20px;">
       <h1>GoQuiz</h1>
       <h3 style="margin: 20px;">Verificação de e-mail<h3>
           <p style="font-size: 12px; margin: 20px;">Bem vindo ao GoQuiz, <span style="color: green;">${nick}</span>, divirta-se criando e jogando quiz.</p>
-          <p style="font-size: 12px; margin: 20px;">Proteja sua conta GoQuiz verificando seu e-mail.</p>
-          <p style="font-size: 16px; margin: 20px;">Acesse o link abaixo para confirmar sua conta.</p>
-          <p style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px;">http://localhost:3000/activate-account/${newUser._id}
+          <p style="font-size: 14px; margin: 20px;">Para ativar sua conta e ter acesso a todos recursos do GoQuiz basta acessar o link abaixo (ou copiar e colar o link no seu navegador).</p>
+          <p style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px; box-shadow: 2px 2px 1px lightslategrey; border-radius: 4px;">http://localhost:3000/activate-account/${newUser._id}
           </p>
+          <p style="font-size: 10px; margin-top: 24px; margin-bottom: 8px;">Obrigado por se cadastrar e divirta-se</p>
+          <p style="font-size: 10px;">Atenciosamente: GoQuiz</p>
     </div>`,
     };
 
