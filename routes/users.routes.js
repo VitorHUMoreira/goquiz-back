@@ -132,6 +132,13 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
       passwordHash: 0,
     })
       .populate("favorites")
+      .populate({
+        path: "favorites",
+        populate: {
+          path: "author",
+          model: "User",
+        },
+      })
       .populate("quizzes");
 
     return res.status(200).json(user);

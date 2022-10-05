@@ -31,7 +31,12 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const allQuizzes = await QuizModel.find({});
+    const allQuizzes = await QuizModel.find({})
+      .populate("author")
+      .populate("questions");
+
+    delete allQuizzes[0].author._doc.passwordHash;
+
     return res.status(200).json(allQuizzes);
   } catch (error) {
     console.log(error);
@@ -46,6 +51,8 @@ router.get("/quiz/:quizId", async (req, res) => {
     const quiz = await QuizModel.findById(quizId)
       .populate("author")
       .populate("questions");
+
+    delete quiz.author._doc.passwordHash;
 
     return res.status(200).json(quiz);
   } catch (error) {
@@ -165,7 +172,7 @@ router.put("/rating/:quizId", isAuth, attachCurrentUser, async (req, res) => {
       );
     }
 
-    return res.status(200).json(ratingQuiz);
+    return res.status(200).json();
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);

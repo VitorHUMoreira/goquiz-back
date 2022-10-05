@@ -8,7 +8,7 @@ const quizSchema = new Schema(
       required: true,
       trim: true,
       minLength: 3,
-      maxLength: 32,
+      maxLength: 64,
     },
     description: {
       type: String,
