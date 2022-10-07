@@ -49,7 +49,7 @@ router.post("/sign-up", async (req, res) => {
       from: '"GoQuiz" <go-quiz@hotmail.com>',
       to: email,
       subject: "Ative sua conta",
-      text: `Link para ativar sua conta: http://localhost:3000/activate-account/${newUser._id}`,
+      text: `Link para ativar sua conta: https://go-quiz.netlify.app/activate-account/${newUser._id}`,
       html: `<div style="font-family: sans-serif; text-align: center; background-color: darkgrey; padding: 20px;">
       <h1>GoQuiz</h1>
       <h3 style="margin: 20px;">Verificação de e-mail<h3>
