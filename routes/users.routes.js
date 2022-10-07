@@ -55,15 +55,12 @@ router.post("/sign-up", async (req, res) => {
       <h3 style="margin: 20px;">Verificação de e-mail<h3>
           <p style="font-size: 14px; margin: 20px; color: black;">Bem vindo ao GoQuiz, <span style="color: green;">${nick}</span>.</p>
           <p style="font-size: 14px; margin: 20px; color: black;">Para ativar sua conta e ter acesso a todos recursos do GoQuiz basta acessar o link abaixo (ou copiar e colar o link no seu navegador).</p>
-          <a style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px; box-shadow: 2px 2px 1px lightslategrey; border-radius: 4px; text-decoration: none;" href="https://go-quiz.netlify.app/activate-account/${newUser._id}" target="_blank" rel="noopener noreferrer">Ativar conta
+          <a style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px; box-shadow: 2px 2px 1px lightslategrey; border-radius: 4px; text-decoration: none; padding: 4px;" href="https://go-quiz.netlify.app/activate-account/${newUser._id}" target="_blank" rel="noopener noreferrer">Ativar conta
           </a>
           <p style="font-size: 12px; margin-top: 24px; margin-bottom: 8px; color: black;">Obrigado por se cadastrar e divirta-se!</p>
           <p style="font-size: 12px; color: black;">Atenciosamente: GoQuiz.</p>
     </div>`,
     };
-
-    // <p style="color: white; background-color: green; font-size: 16px; font-weight: bolder; margin: 20px; cursor: pointer; border: 1px solid black; padding: 4px; box-shadow: 2px 2px 1px lightslategrey; border-radius: 4px;">https://go-quiz.netlify.app/activate-account/${newUser._id}
-    // </p>
 
     await transporter.sendMail(mailOptions);
 
