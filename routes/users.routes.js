@@ -19,7 +19,7 @@ let transporter = nodemailer.createTransport({
   service: "Hotmail",
   auth: {
     secure: false,
-    user: "goquiz@hotmail.com",
+    user: "go-quiz@hotmail.com",
     pass: process.env.MAIL_PASSWORD,
   },
 });
@@ -46,7 +46,7 @@ router.post("/sign-up", async (req, res) => {
     delete newUser._doc.passwordHash;
 
     const mailOptions = {
-      from: '"GoQuiz" <goquiz@hotmail.com>',
+      from: '"GoQuiz" <go-quiz@hotmail.com>',
       to: email,
       subject: "Ative sua conta",
       text: `Link para ativar sua conta: http://localhost:3000/activate-account/${newUser._id}`,
